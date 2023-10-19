@@ -1,10 +1,10 @@
 import openpyxl
 
 replacement_dict = {
-    "T1234": "NewValue1",
-    "T1235": "NewValue2",
-    "T1236": "NewValue3",
-    
+    #MITRE ATT&CK CHANGES FROM VERSIONS 8.* AND 9.* AND 10.* AND 11.* AND 12.* -> 13.1
+    "T1053.001": "T1053.002",
+    "T1053.004": "T1543.004",
+    "T1547.011": "T1647"
 }
 
 file_path = "input.xlsx"  
