@@ -1,0 +1,25 @@
+import openpyxl
+
+replacement_dict = {
+    "T1234": "NewValue1",
+    "T1235": "NewValue2",
+    "T1236": "NewValue3",
+    
+}
+
+file_path = "input.xlsx"  
+workbook = openpyxl.load_workbook(file_path)
+
+for sheet_name in workbook.sheetnames:
+    sheet = workbook[sheet_name]
+    
+     for row in sheet.iter_rows(min_row=1, max_row=sheet.max_row, min_col=1, max_col=sheet.max_column):
+        for cell in row:
+            
+            cell_value = cell.value
+            if cell_value in replacement_dict:
+               cell.value = replacement_dict[cell_value]
+
+
+workbook.save("output_TTPs_replaced.xlsx")
+workbook.close()
