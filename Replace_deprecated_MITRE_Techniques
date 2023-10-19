@@ -1,25 +1,29 @@
 import openpyxl
 
+# Define changes
 replacement_dict = {
     #MITRE ATT&CK CHANGES FROM VERSIONS 8.* AND 9.* AND 10.* AND 11.* AND 12.* -> 13.1
     "T1053.001": "T1053.002",
     "T1053.004": "T1543.004",
-    "T1547.011": "T1647"
+    "T1547.011": "T1647",
 }
 
+# Load the Excel file
 file_path = "input.xlsx"  
 workbook = openpyxl.load_workbook(file_path)
 
+# Iteration through each sheet in the file 
 for sheet_name in workbook.sheetnames:
     sheet = workbook[sheet_name]
-    
+     # Iteration through all rows in the sheet   
      for row in sheet.iter_rows(min_row=1, max_row=sheet.max_row, min_col=1, max_col=sheet.max_column):
         for cell in row:
-            
+             # Check if the cell is in scope, see replacement_dict
             cell_value = cell.value
             if cell_value in replacement_dict:
+               # If cell matches defined TTPs is changed to new value
                cell.value = replacement_dict[cell_value]
 
-
+# Save modified file and close workbook
 workbook.save("output_TTPs_replaced.xlsx")
 workbook.close()
